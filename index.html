@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Country Health Scorecard — July 1, 2026</title>
+  <style>
+    :root {
+      --green: #1a7f4b;
+      --green-bg: #e6f4ec;
+      --yellow: #b8860b;
+      --yellow-bg: #fef9e7;
+      --red: #c0392b;
+      --red-bg: #fdecea;
+      --navy: #1a2744;
+      --slate: #4a5568;
+      --muted: #718096;
+      --border: #e2e8f0;
+      --bg: #f7f9fc;
+      --card: #ffffff;
+      --accent: #2563eb;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      background: var(--bg);
+      color: var(--navy);
+      line-height: 1.5;
+      padding: 2rem 1rem 4rem;
+    }
+
+    .page {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    header {
+      background: linear-gradient(135deg, var(--navy) 0%, #2d4a7a 100%);
+      color: white;
+      border-radius: 12px;
+      padding: 2rem 2.5rem;
+      margin-bottom: 2rem;
+    }
+
+    header h1 {
+      font-size: 1.75rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.5rem;
+    }
+
+    header .meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      font-size: 0.9rem;
+      opacity: 0.9;
+      margin-top: 1rem;
+    }
+
+    header .meta span {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .section {
+      background: var(--card);
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      padding: 1.75rem 2rem;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+    }
+
+    .section h2 {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 1.25rem;
+      padding-bottom: 0.6rem;
+      border-bottom: 2px solid var(--border);
+    }
+
+    .takeaways {
+      display: grid;
+      gap: 1rem;
+    }
+
+    .takeaway {
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+    }
+
+    .takeaway-icon {
+      flex-shrink: 0;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.85rem;
+      font-weight: 700;
+    }
+
+    .takeaway-icon.positive { background: var(--green-bg); color: var(--green); }
+    .takeaway-icon.warning { background: var(--yellow-bg); color: var(--yellow); }
+    .takeaway-icon.critical { background: var(--red-bg); color: var(--red); }
+
+    .takeaway p { font-size: 0.95rem; color: var(--slate); }
+    .takeaway strong { color: var(--navy); }
+
+    .table-wrap {
+      overflow-x: auto;
+      margin: 0 -0.5rem;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.875rem;
+    }
+
+    th {
+      background: var(--navy);
+      color: white;
+      font-weight: 600;
+      text-align: center;
+      padding: 0.75rem 0.6rem;
+      white-space: nowrap;
+    }
+
+    th:first-child { text-align: left; border-radius: 8px 0 0 0; }
+    th:last-child { border-radius: 0 8px 0 0; }
+
+    td {
+      text-align: center;
+      padding: 0.65rem 0.6rem;
+      border-bottom: 1px solid var(--border);
+      font-variant-numeric: tabular-nums;
+    }
+
+    td:first-child {
+      text-align: left;
+      font-weight: 700;
+      color: var(--navy);
+      background: #fafbfc;
+    }
+
+    tr:last-child td { border-bottom: none; }
+    tr:hover td:not(:first-child) { filter: brightness(0.97); }
+
+    .cell-g { background: var(--green-bg); color: var(--green); font-weight: 600; }
+    .cell-y { background: var(--yellow-bg); color: var(--yellow); font-weight: 600; }
+    .cell-r { background: var(--red-bg); color: var(--red); font-weight: 600; }
+
+    .legend-table th { background: #edf2f7; color: var(--navy); font-size: 0.8rem; }
+    .legend-table td { font-size: 0.85rem; color: var(--slate); }
+    .legend-table .badge {
+      display: inline-block;
+      padding: 0.15rem 0.5rem;
+      border-radius: 4px;
+      font-weight: 600;
+      font-size: 0.8rem;
+    }
+    .badge-g { background: var(--green-bg); color: var(--green); }
+    .badge-y { background: var(--yellow-bg); color: var(--yellow); }
+    .badge-r { background: var(--red-bg); color: var(--red); }
+
+    .metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1rem;
+    }
+
+    .metric-card {
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1.1rem 1.25rem;
+      background: #fafbfc;
+    }
+
+    .metric-card h3 {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 0.5rem;
+    }
+
+    .metric-card .window {
+      display: inline-block;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--accent);
+      background: #eff6ff;
+      padding: 0.15rem 0.5rem;
+      border-radius: 4px;
+      margin-bottom: 0.6rem;
+    }
+
+    .metric-card p {
+      font-size: 0.85rem;
+      color: var(--slate);
+      line-height: 1.55;
+    }
+
+    footer {
+      text-align: center;
+      font-size: 0.8rem;
+      color: var(--muted);
+      margin-top: 2rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--border);
+    }
+
+    @media print {
+      body { padding: 0; background: white; }
+      .section { box-shadow: none; break-inside: avoid; }
+      header { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+      .cell-g, .cell-y, .cell-r, th { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+
+    <header>
+      <h1>Country Health Scorecard</h1>
+      <p style="opacity:0.85; font-size:1rem;">Geo Expansion — corridor performance snapshot</p>
+      <div class="meta">
+        <span><strong>Report date:</strong> July 1, 2026</span>
+        <span><strong>Data window:</strong> 30d (CVR, NPS, active users) · 14d (disbursement, chargeback) · 7d (bot failures)</span>
+        <span><strong>Countries:</strong> MX, GT, HN, CO, SV, NI, EC, DO, PE</span>
+      </div>
+    </header>
+
+    <section class="section">
+      <h2>Key Takeaways</h2>
+      <div class="takeaways">
+
+        <div class="takeaway">
+          <div class="takeaway-icon positive">✓</div>
+          <p><strong>Core corridors growing on active users.</strong> MX up to 363.2k; GT at 73.1k. PE reached 1,166 MAUs. No country green on disbursement (14d).</p>
+        </div>
+
+        <div class="takeaway">
+          <div class="takeaway-icon positive">↑</div>
+          <p><strong>Ecuador new CVR recovered to landing.</strong> New CVR at 30.0% (yellow, from 29.3% red). Existing CVR 66.2% (yellow). Disbursement still red at 90.6%.</p>
+        </div>
+
+        <div class="takeaway">
+          <div class="takeaway-icon positive">✓</div>
+          <p><strong>Colombia disbursement improved to 96.1%.</strong> New CVR ticked up to 34.7% (yellow). Bot failures eased to 5.9% (yellow).</p>
+        </div>
+
+        <div class="takeaway">
+          <div class="takeaway-icon critical">✕</div>
+          <p><strong>Dominican Republic remains the most stressed corridor.</strong> Red on new CVR (19.7%), existing CVR (48.9%), disbursement (91.7%), bot failures (17.8%), and chargeback (0.55%).</p>
+        </div>
+
+        <div class="takeaway">
+          <div class="takeaway-icon critical">✕</div>
+          <p><strong>EC and PE bot failures critical.</strong> EC 15.6%, PE 10.2% — both red (&gt;10%). MX holds green at 2.9%.</p>
+        </div>
+
+        <div class="takeaway">
+          <div class="takeaway-icon warning">!</div>
+          <p><strong>DO chargeback at 0.55% on 14d window.</strong> Only corridor red on chargeback. All others green at ≤0.14%.</p>
+        </div>
+
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Scorecard — July 1, 2026</h2>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Country</th>
+              <th>Active Users<br><small>(30d)</small></th>
+              <th>New User<br>CVR</th>
+              <th>Existing User<br>CVR</th>
+              <th>Disbursement<br>Success <small>(14d)</small></th>
+              <th>Bot Failures<br><small>(7d)</small></th>
+              <th>NPS</th>
+              <th>Chargeback<br><small>(14d)</small></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>MX</td>
+              <td class="cell-g">363,151</td>
+              <td class="cell-g">44.1%</td>
+              <td class="cell-g">77.1%</td>
+              <td class="cell-y">96.5%</td>
+              <td class="cell-g">2.9%</td>
+              <td class="cell-g">87.9</td>
+              <td class="cell-g">0.01%</td>
+            </tr>
+            <tr>
+              <td>GT</td>
+              <td class="cell-g">73,083</td>
+              <td class="cell-g">46.0%</td>
+              <td class="cell-g">78.4%</td>
+              <td class="cell-y">94.5%</td>
+              <td class="cell-y">5.3%</td>
+              <td class="cell-y">81.5</td>
+              <td class="cell-g">0.01%</td>
+            </tr>
+            <tr>
+              <td>HN</td>
+              <td class="cell-g">46,581</td>
+              <td class="cell-g">45.7%</td>
+              <td class="cell-g">84.3%</td>
+              <td class="cell-y">93.5%</td>
+              <td class="cell-y">4.6%</td>
+              <td class="cell-g">88.3</td>
+              <td class="cell-g">0.01%</td>
+            </tr>
+            <tr>
+              <td>CO</td>
+              <td class="cell-g">33,254</td>
+              <td class="cell-y">34.7%</td>
+              <td class="cell-y">65.7%</td>
+              <td class="cell-y">96.1%</td>
+              <td class="cell-y">5.9%</td>
+              <td class="cell-y">81.7</td>
+              <td class="cell-g">0.03%</td>
+            </tr>
+            <tr>
+              <td>SV</td>
+              <td class="cell-g">14,397</td>
+              <td class="cell-g">44.5%</td>
+              <td class="cell-g">85.8%</td>
+              <td class="cell-y">94.4%</td>
+              <td class="cell-y">5.2%</td>
+              <td class="cell-g">90.0</td>
+              <td class="cell-g">0.01%</td>
+            </tr>
+            <tr>
+              <td>NI</td>
+              <td class="cell-g">9,034</td>
+              <td class="cell-g">45.2%</td>
+              <td class="cell-g">82.1%</td>
+              <td class="cell-y">92.8%</td>
+              <td class="cell-y">6.3%</td>
+              <td class="cell-g">88.0</td>
+              <td class="cell-g">0.07%</td>
+            </tr>
+            <tr>
+              <td>EC</td>
+              <td class="cell-g">2,276</td>
+              <td class="cell-y">30.0%</td>
+              <td class="cell-y">66.2%</td>
+              <td class="cell-r">90.6%</td>
+              <td class="cell-r">15.6%</td>
+              <td class="cell-g">88.0</td>
+              <td class="cell-g">0.03%</td>
+            </tr>
+            <tr>
+              <td>DO</td>
+              <td class="cell-g">1,967</td>
+              <td class="cell-r">19.7%</td>
+              <td class="cell-r">48.9%</td>
+              <td class="cell-r">91.7%</td>
+              <td class="cell-r">17.8%</td>
+              <td class="cell-g">88.6</td>
+              <td class="cell-r">0.55%</td>
+            </tr>
+            <tr>
+              <td>PE</td>
+              <td class="cell-g">1,166</td>
+              <td class="cell-r">18.9%</td>
+              <td class="cell-r">55.6%</td>
+              <td class="cell-y">92.0%</td>
+              <td class="cell-r">10.2%</td>
+              <td class="cell-g">88.4</td>
+              <td class="cell-g">0.14%</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Color Code Key</h2>
+      <div class="table-wrap">
+        <table class="legend-table">
+          <thead>
+            <tr>
+              <th>Metric</th>
+              <th><span class="badge badge-g">Green</span></th>
+              <th><span class="badge badge-y">Yellow</span></th>
+              <th><span class="badge badge-r">Red</span></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>New User CVR</strong></td>
+              <td>≥ 40%</td>
+              <td>30 – 39.9%</td>
+              <td>&lt; 30%</td>
+            </tr>
+            <tr>
+              <td><strong>Existing User CVR</strong></td>
+              <td>≥ 72%</td>
+              <td>65 – 71.9%</td>
+              <td>&lt; 65%</td>
+            </tr>
+            <tr>
+              <td><strong>Disbursement Success Rate</strong></td>
+              <td>≥ 98%</td>
+              <td>92 – 97.9%</td>
+              <td>&lt; 92%</td>
+            </tr>
+            <tr>
+              <td><strong>Bot Failures</strong></td>
+              <td>&lt; 3%</td>
+              <td>3 – 10%</td>
+              <td>&gt; 10%</td>
+            </tr>
+            <tr>
+              <td><strong>Chargeback Rate</strong></td>
+              <td>≤ 0.20%</td>
+              <td>0.21 – 0.50%</td>
+              <td>&gt; 0.50%</td>
+            </tr>
+            <tr>
+              <td><strong>NPS</strong></td>
+              <td>≥ 85</td>
+              <td>70 – 84.9</td>
+              <td>&lt; 70</td>
+            </tr>
+            <tr>
+              <td><strong>Active Users</strong></td>
+              <td>≥ 1,000</td>
+              <td>—</td>
+              <td>&lt; 1,000</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p style="margin-top:1rem; font-size:0.85rem; color:var(--muted); line-height:1.6;">
+        <strong style="color:var(--navy);">What the colors mean</strong><br>
+        <span class="badge badge-g">Green</span> Meets the <strong>scaling</strong> target — performance supports growth and optimization at scale.<br>
+        <span class="badge badge-y">Yellow</span> Meets the <strong>landing</strong> target, but not scaling — corridor is viable, not yet optimized.<br>
+        <span class="badge badge-r">Red</span> Below the <strong>landing</strong> target — metric is underperforming and needs attention.<br>
+        <em style="display:block; margin-top:0.5rem;">Bot Failures: lower is better — % of sessions requiring human escalation.</em>
+      </p>
+    </section>
+
+    <section class="section">
+      <h2>Metric Definitions</h2>
+      <p style="font-size:0.9rem; color:var(--slate); margin-bottom:1.25rem;">
+        Full SQL, source tables, and formulas: <code>metric_definitions.md</code> in this folder.
+        Query: <code>country_scorecard.sql</code> · Project: <code>data-eng-prod-431217</code>
+      </p>
+      <div class="metrics-grid">
+
+        <div class="metric-card">
+          <h3>Active Users</h3>
+          <span class="window">Rolling 30 days</span>
+          <p><code>COUNT(DISTINCT user_id)</code> where <code>is_completed = TRUE</code>. Source: <code>int_remittances.int__remittances</code>, filtered on <code>payment_created_at</code>. Country: <code>destination_country_code</code>.</p>
+        </div>
+
+        <div class="metric-card">
+          <h3>New User Conversion Rate</h3>
+          <span class="window">Rolling 30 days</span>
+          <p><code>user_id_converted ÷ user_id × 100</code>. Source: <code>mart_chat__funnel_conversion_user_level</code>. Filters: <code>funnel = 'full_funnel'</code>, <code>user_type = 'New User'</code>, <code>date</code> window. Omni-aligned.</p>
+        </div>
+
+        <div class="metric-card">
+          <h3>Existing User Conversion Rate</h3>
+          <span class="window">Rolling 30 days</span>
+          <p>Same as new user CVR with <code>user_type = 'Existing User'</code>. Same mart, date, and country logic. Omni-aligned.</p>
+        </div>
+
+        <div class="metric-card">
+          <h3>Disbursement Success Rate</h3>
+          <span class="window">Rolling 14 days</span>
+          <p><code>Successful Disbursement attempts ÷ all attempts × 100</code>. Source: <code>int__disbursements</code> joined to <code>int__remittances</code>. Filtered on <code>created_at_est</code> / <code>payment_created_at</code>.</p>
+        </div>
+
+        <div class="metric-card">
+          <h3>Bot Failures</h3>
+          <span class="window">Rolling 7 days</span>
+          <p><code>sessions_with_bot_failure ÷ total_sessions × 100</code>. Source: <code>mart__automation_rate</code>, <code>created_at</code>. <strong>Higher is worse.</strong> Green &lt;3%, yellow 3–10%, red &gt;10%.</p>
+        </div>
+
+        <div class="metric-card">
+          <h3>NPS (Net Promoter Score)</h3>
+          <span class="window">Rolling 30 days</span>
+          <p><code>% Promoters − % Detractors</code> from <code>int__nps_survey_responses</code>. Neutrals excluded from score. Small samples in PE, DO, EC.</p>
+        </div>
+
+        <div class="metric-card">
+          <h3>Chargeback Rate</h3>
+          <span class="window">Rolling 14 days</span>
+          <p><code>Disputed payments ÷ completed payments × 100</code>. Source: <code>int__remittances</code>. Filter: <code>is_last_disbursement_for_payment_id = TRUE</code>. Payments and disputes both in 14d window.</p>
+        </div>
+
+      </div>
+    </section>
+
+    <footer>
+      Generated July 1, 2026 &nbsp;·&nbsp; BigQuery <code>data-eng-prod-431217</code> &nbsp;·&nbsp; <code>country_scorecard.sql</code> &nbsp;·&nbsp; See <code>metric_definitions.md</code>
+    </footer>
+
+  </div>
+</body>
+</html>
