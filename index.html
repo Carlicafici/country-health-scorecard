@@ -480,43 +480,43 @@
         <div class="metric-card">
           <h3>Active Users</h3>
           <span class="window">Rolling 30 days</span>
-          <p><code>COUNT(DISTINCT user_id)</code> where <code>is_completed = TRUE</code>. Source: <code>int_remittances.int__remittances</code>, filtered on <code>payment_created_at</code>. Country: <code>destination_country_code</code>.</p>
+          <p>Distinct users who completed at least one transaction in the last 30 days. <code>COUNT(DISTINCT user_id)</code> where <code>is_completed = TRUE</code>. Source: <code>int_remittances.int__remittances</code>, filtered on <code>payment_created_at</code>. Country: <code>destination_country_code</code>.</p>
         </div>
 
         <div class="metric-card">
           <h3>New User Conversion Rate</h3>
           <span class="window">Rolling 7 days</span>
-          <p><code>user_id_converted ÷ user_id × 100</code>. Source: <code>mart_chat__funnel_conversion_user_level</code>. Filters: <code>funnel = 'full_funnel'</code>, <code>user_type = 'New User'</code>, <code>date</code> window. Omni-aligned.</p>
+          <p>Of the <strong>new users</strong> who entered the full chat funnel in the last 7 days, the % who completed a transaction. <code>COUNT(DISTINCT user_id_converted) ÷ COUNT(DISTINCT user_id) × 100</code>. Source: <code>mart_chat__funnel_conversion_user_level</code>. Filters: <code>funnel = 'full_funnel'</code>, <code>user_type = 'New User'</code>. Country: <code>default_remittance_country</code>. Omni-aligned.</p>
         </div>
 
         <div class="metric-card">
           <h3>Existing User Conversion Rate</h3>
           <span class="window">Rolling 7 days</span>
-          <p>Same as new user CVR with <code>user_type = 'Existing User'</code>. Same mart, date, and country logic. Omni-aligned.</p>
+          <p>Of the <strong>existing users</strong> (≥ 1 prior transaction) who entered the full chat funnel in the last 7 days, the % who completed a transaction. Same formula, mart, and country logic as new user CVR with <code>user_type = 'Existing User'</code>. Omni-aligned.</p>
         </div>
 
         <div class="metric-card">
           <h3>Disbursement Success Rate</h3>
           <span class="window">Rolling 14 days</span>
-          <p><code>Successful Disbursement attempts ÷ all attempts × 100</code>. Source: <code>int__disbursements</code> joined to <code>int__remittances</code>. Filtered on <code>created_at_est</code> / <code>payment_created_at</code>.</p>
+          <p>Of all disbursement attempts in the last 14 days, the % that resulted in a successful payout. <code>Successful Disbursement attempts ÷ all attempts × 100</code>. Source: <code>int__disbursements</code> joined to <code>int__remittances</code>. Filtered on <code>created_at_est</code> / <code>payment_created_at</code>.</p>
         </div>
 
         <div class="metric-card">
           <h3>Bot Failures</h3>
           <span class="window">Rolling 7 days</span>
-          <p><code>sessions_with_bot_failure ÷ total_sessions × 100</code>. Source: <code>mart__automation_rate</code>, <code>created_at</code>. <strong>Higher is worse.</strong> Green &lt;3%, yellow 3–10%, red &gt;10%.</p>
+          <p>Of all chat sessions in the last 7 days, the % that required human operator escalation. <code>sessions_with_bot_failure ÷ total_sessions × 100</code>. Source: <code>mart__automation_rate</code>, <code>created_at</code>. <strong>Higher is worse.</strong> Green &lt;3%, yellow 3–10%, red &gt;10%.</p>
         </div>
 
         <div class="metric-card">
           <h3>NPS (Net Promoter Score)</h3>
           <span class="window">Rolling 30 days</span>
-          <p><code>% Promoters − % Detractors</code> from <code>int__nps_survey_responses</code>. Neutrals excluded from score. Small samples in PE, DO, EC.</p>
+          <p>Survey sentiment over the last 30 days: <code>% Promoters − % Detractors</code> from <code>int__nps_survey_responses</code>. Neutrals stay in the denominator but not the score. Small samples in PE, DO, EC.</p>
         </div>
 
         <div class="metric-card">
           <h3>Chargeback Rate</h3>
           <span class="window">Rolling 14 days</span>
-          <p><code>Disputed payments ÷ completed payments × 100</code>. Source: <code>int__remittances</code>. Filter: <code>is_last_disbursement_for_payment_id = TRUE</code>. Payments and disputes both in 14d window.</p>
+          <p>Of completed payments in the last 14 days, the % that had a chargeback or dispute filed in the same window. <code>Disputed payments ÷ completed payments × 100</code>. Source: <code>int__remittances</code>. Filter: <code>is_last_disbursement_for_payment_id = TRUE</code>. Payments and disputes both in 14d window.</p>
         </div>
 
       </div>
