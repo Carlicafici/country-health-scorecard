@@ -32,7 +32,7 @@
     }
 
     .page {
-      max-width: 1100px;
+      max-width: 1200px;
       margin: 0 auto;
     }
 
@@ -135,7 +135,7 @@
     table {
       width: 100%;
       border-collapse: collapse;
-      font-size: 0.875rem;
+      font-size: 0.72rem;
     }
 
     th {
@@ -143,16 +143,20 @@
       color: white;
       font-weight: 600;
       text-align: center;
-      padding: 0.75rem 0.6rem;
-      white-space: nowrap;
+      padding: 0.45rem 0.3rem;
+      white-space: normal;
+      line-height: 1.25;
+      vertical-align: bottom;
     }
 
-    th:first-child { text-align: left; border-radius: 8px 0 0 0; }
+    th small { font-size: 0.65rem; font-weight: 500; opacity: 0.9; }
+
+    th:first-child { text-align: left; border-radius: 8px 0 0 0; white-space: nowrap; }
     th:last-child { border-radius: 0 8px 0 0; }
 
     td {
       text-align: center;
-      padding: 0.65rem 0.6rem;
+      padding: 0.4rem 0.3rem;
       border-bottom: 1px solid var(--border);
       font-variant-numeric: tabular-nums;
     }
@@ -312,7 +316,7 @@
           <tbody>
             <tr>
               <td>MX</td>
-              <td class="cell-g">368,046</td>
+              <td>368,046</td>
               <td class="cell-y">+2.4%</td>
               <td class="cell-g">42.6%</td>
               <td class="cell-g">75.7%</td>
@@ -325,7 +329,7 @@
             </tr>
             <tr>
               <td>GT</td>
-              <td class="cell-g">78,461</td>
+              <td>78,461</td>
               <td class="cell-g">+5.0%</td>
               <td class="cell-g">47.6%</td>
               <td class="cell-g">79.5%</td>
@@ -338,7 +342,7 @@
             </tr>
             <tr>
               <td>HN</td>
-              <td class="cell-g">49,914</td>
+              <td>49,914</td>
               <td class="cell-g">+8.2%</td>
               <td class="cell-g">49.9%</td>
               <td class="cell-g">83.9%</td>
@@ -351,7 +355,7 @@
             </tr>
             <tr>
               <td>CO</td>
-              <td class="cell-g">34,993</td>
+              <td>34,993</td>
               <td class="cell-y">+4.3%</td>
               <td class="cell-y">36.6%</td>
               <td class="cell-r">62.5%</td>
@@ -364,7 +368,7 @@
             </tr>
             <tr>
               <td>SV</td>
-              <td class="cell-g">15,204</td>
+              <td>15,204</td>
               <td class="cell-g">+5.7%</td>
               <td class="cell-g">44.8%</td>
               <td class="cell-g">87.9%</td>
@@ -377,7 +381,7 @@
             </tr>
             <tr>
               <td>NI</td>
-              <td class="cell-g">9,269</td>
+              <td>9,269</td>
               <td class="cell-g">+5.9%</td>
               <td class="cell-g">43.7%</td>
               <td class="cell-g">87.6%</td>
@@ -390,7 +394,7 @@
             </tr>
             <tr>
               <td>EC</td>
-              <td class="cell-y">2,381</td>
+              <td>2,381</td>
               <td class="cell-g">+14.4%</td>
               <td class="cell-r">27.3%</td>
               <td class="cell-g">76.8%</td>
@@ -403,7 +407,7 @@
             </tr>
             <tr>
               <td>DO</td>
-              <td class="cell-y">2,516</td>
+              <td>2,516</td>
               <td class="cell-g">+19.7%</td>
               <td class="cell-r">26.2%</td>
               <td class="cell-r">54.5%</td>
@@ -416,7 +420,7 @@
             </tr>
             <tr>
               <td>PE</td>
-              <td class="cell-y">1,767</td>
+              <td>1,767</td>
               <td class="cell-g">+52.9%</td>
               <td class="cell-r">24.8%</td>
               <td class="cell-r">62.3%</td>
@@ -492,12 +496,6 @@
               <td>≥ 85</td>
               <td>70 – 84.9</td>
               <td>&lt; 70</td>
-            </tr>
-            <tr>
-              <td><strong>Active Users</strong></td>
-              <td>≥ 5,000</td>
-              <td>1,000 – 4,999</td>
-              <td>&lt; 1,000</td>
             </tr>
             <tr>
               <td><strong>MoM Txn Growth</strong></td>
