@@ -32,8 +32,10 @@
     }
 
     .page {
-      max-width: 1200px;
+      max-width: 100%;
+      width: 100%;
       margin: 0 auto;
+      padding: 0 0.25rem;
     }
 
     .internal-banner {
@@ -83,7 +85,7 @@
       background: var(--card);
       border-radius: 12px;
       border: 1px solid var(--border);
-      padding: 1.75rem 2rem;
+      padding: 1.25rem 1rem;
       margin-bottom: 1.5rem;
       box-shadow: 0 1px 3px rgba(0,0,0,0.04);
     }
@@ -128,14 +130,15 @@
     .takeaway strong { color: var(--navy); }
 
     .table-wrap {
-      overflow-x: auto;
-      margin: 0 -0.5rem;
+      overflow-x: visible;
+      margin: 0;
     }
 
     table {
       width: 100%;
       border-collapse: collapse;
-      font-size: 0.72rem;
+      table-layout: fixed;
+      font-size: 0.62rem;
     }
 
     th {
@@ -143,20 +146,21 @@
       color: white;
       font-weight: 600;
       text-align: center;
-      padding: 0.45rem 0.3rem;
+      padding: 0.35rem 0.12rem;
       white-space: normal;
-      line-height: 1.25;
+      line-height: 1.15;
       vertical-align: bottom;
+      font-size: 0.58rem;
     }
 
-    th small { font-size: 0.65rem; font-weight: 500; opacity: 0.9; }
+    th small { font-size: 0.52rem; font-weight: 500; opacity: 0.9; }
 
-    th:first-child { text-align: left; border-radius: 8px 0 0 0; white-space: nowrap; }
+    th:first-child { text-align: left; border-radius: 8px 0 0 0; white-space: nowrap; width: 2.6rem; }
     th:last-child { border-radius: 0 8px 0 0; }
 
     td {
       text-align: center;
-      padding: 0.4rem 0.3rem;
+      padding: 0.3rem 0.1rem;
       border-bottom: 1px solid var(--border);
       font-variant-numeric: tabular-nums;
     }
@@ -301,16 +305,16 @@
           <thead>
             <tr>
               <th>Country</th>
-              <th>Active Users<br><small>(30d)</small></th>
-              <th>MoM Txn<br>Growth <small>(30d)</small></th>
-              <th>New User<br>CVR <small>(7d)</small></th>
-              <th>Existing User<br>CVR <small>(7d)</small></th>
-              <th>New User<br>Retention <small>(28d)</small></th>
-              <th>Existing User<br>Retention <small>(28d)</small></th>
-              <th>Disbursement<br>Success <small>(7d)</small></th>
-              <th>Bot Failures<br><small>(7d)</small></th>
+              <th>Active<br>Users <small>(30d)</small></th>
+              <th>MoM<br>Growth <small>(30d)</small></th>
+              <th>New<br>CVR <small>(7d)</small></th>
+              <th>Exist<br>CVR <small>(7d)</small></th>
+              <th>New<br>Ret <small>(28d)</small></th>
+              <th>Exist<br>Ret <small>(28d)</small></th>
+              <th>Disb<br>Success <small>(7d)</small></th>
+              <th>Bot<br>Fail <small>(7d)</small></th>
               <th>NPS</th>
-              <th>Chargeback<br><small>(14d)</small></th>
+              <th>CB<br><small>(14d)</small></th>
             </tr>
           </thead>
           <tbody>
