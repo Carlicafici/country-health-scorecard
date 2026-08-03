@@ -130,15 +130,17 @@
     .takeaway strong { color: var(--navy); }
 
     .table-wrap {
-      overflow-x: visible;
+      overflow-x: auto;
       margin: 0;
+      width: fit-content;
+      max-width: 100%;
     }
 
     table {
-      width: 100%;
+      width: auto;
       border-collapse: collapse;
-      table-layout: fixed;
-      font-size: 0.62rem;
+      table-layout: auto;
+      font-size: 0.72rem;
     }
 
     th {
@@ -146,23 +148,33 @@
       color: white;
       font-weight: 600;
       text-align: center;
-      padding: 0.35rem 0.12rem;
+      padding: 0.4rem 0.4rem;
       white-space: normal;
-      line-height: 1.15;
+      line-height: 1.2;
       vertical-align: bottom;
-      font-size: 0.58rem;
+      font-size: 0.68rem;
+      max-width: 4.75rem;
     }
 
-    th small { font-size: 0.52rem; font-weight: 500; opacity: 0.9; }
+    th small { font-size: 0.58rem; font-weight: 500; opacity: 0.9; }
 
-    th:first-child { text-align: left; border-radius: 8px 0 0 0; white-space: nowrap; width: 2.6rem; }
+    th:first-child {
+      text-align: left;
+      border-radius: 8px 0 0 0;
+      white-space: nowrap;
+      max-width: none;
+      width: 2.5rem;
+      padding-left: 0.55rem;
+      padding-right: 0.55rem;
+    }
     th:last-child { border-radius: 0 8px 0 0; }
 
     td {
       text-align: center;
-      padding: 0.3rem 0.1rem;
+      padding: 0.35rem 0.4rem;
       border-bottom: 1px solid var(--border);
       font-variant-numeric: tabular-nums;
+      white-space: nowrap;
     }
 
     td:first-child {
@@ -170,6 +182,8 @@
       font-weight: 700;
       color: var(--navy);
       background: #fafbfc;
+      padding-left: 0.55rem;
+      padding-right: 0.55rem;
     }
 
     tr:last-child td { border-bottom: none; }
@@ -179,14 +193,33 @@
     .cell-y { background: var(--yellow-bg); color: var(--yellow); font-weight: 600; }
     .cell-r { background: var(--red-bg); color: var(--red); font-weight: 600; }
 
-    .legend-table th { background: #edf2f7; color: var(--navy); font-size: 0.8rem; }
-    .legend-table td { font-size: 0.85rem; color: var(--slate); }
+    .legend-table {
+      font-size: 0.72rem;
+    }
+    .legend-table th {
+      background: #edf2f7;
+      color: var(--navy);
+      font-size: 0.7rem;
+      max-width: none;
+      padding: 0.3rem 0.55rem;
+      white-space: nowrap;
+    }
+    .legend-table td {
+      font-size: 0.72rem;
+      color: var(--slate);
+      padding: 0.28rem 0.55rem;
+    }
+    .legend-table th:first-child,
+    .legend-table td:first-child {
+      text-align: left;
+      white-space: nowrap;
+    }
     .legend-table .badge {
       display: inline-block;
-      padding: 0.15rem 0.5rem;
+      padding: 0.1rem 0.35rem;
       border-radius: 4px;
       font-weight: 600;
-      font-size: 0.8rem;
+      font-size: 0.68rem;
     }
     .badge-g { background: var(--green-bg); color: var(--green); }
     .badge-y { background: var(--yellow-bg); color: var(--yellow); }
@@ -305,16 +338,16 @@
           <thead>
             <tr>
               <th>Country</th>
-              <th>Active<br>Users <small>(30d)</small></th>
-              <th>MoM<br>Growth <small>(30d)</small></th>
-              <th>New<br>CVR <small>(7d)</small></th>
-              <th>Exist<br>CVR <small>(7d)</small></th>
-              <th>New<br>Ret <small>(28d)</small></th>
-              <th>Exist<br>Ret <small>(28d)</small></th>
-              <th>Disb<br>Success <small>(7d)</small></th>
-              <th>Bot<br>Fail <small>(7d)</small></th>
+              <th>Active Users<br><small>(30d)</small></th>
+              <th>MoM Txn Growth<br><small>(30d)</small></th>
+              <th>New User CVR<br><small>(7d)</small></th>
+              <th>Existing User CVR<br><small>(7d)</small></th>
+              <th>New User Retention<br><small>(28d)</small></th>
+              <th>Existing User Retention<br><small>(28d)</small></th>
+              <th>Disbursement Success<br><small>(7d)</small></th>
+              <th>Bot Failures<br><small>(7d)</small></th>
               <th>NPS</th>
-              <th>CB<br><small>(14d)</small></th>
+              <th>Chargeback<br><small>(14d)</small></th>
             </tr>
           </thead>
           <tbody>
@@ -510,12 +543,12 @@
           </tbody>
         </table>
       </div>
-      <p style="margin-top:1rem; font-size:0.85rem; color:var(--muted); line-height:1.6;">
+      <p style="margin-top:0.75rem; font-size:0.75rem; color:var(--muted); line-height:1.45; max-width:36rem;">
         <strong style="color:var(--navy);">What the colors mean</strong><br>
         <span class="badge badge-g">Green</span> Meets the <strong>scaling</strong> target — performance supports growth and optimization at scale.<br>
         <span class="badge badge-y">Yellow</span> Meets the <strong>landing</strong> target, but not scaling — corridor is viable, not yet optimized.<br>
         <span class="badge badge-r">Red</span> Below the <strong>landing</strong> target — metric is underperforming and needs attention.<br>
-        <em style="display:block; margin-top:0.5rem;">Bot Failures: lower is better — % of sessions requiring human escalation.</em>
+        <em style="display:block; margin-top:0.4rem;">Bot Failures: lower is better — % of sessions requiring human escalation.</em>
       </p>
     </section>
 
