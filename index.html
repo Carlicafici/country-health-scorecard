@@ -296,7 +296,7 @@
       <div class="meta">
         <span><strong>Report date:</strong> August 7, 2026</span>
         <span><strong>Data window:</strong> 30d (NPS, active users, MoM growth) · 7d (CVR, disbursement, bot failures) · 28d (retention) · 14d (chargeback)</span>
-        <span><strong>Countries:</strong> MX, GT, HN, CO, SV, NI, EC, DO, PE</span>
+        <span><strong>Countries:</strong> MX, GT, HN, CO, SV, NI, EC, DO, PE, CR</span>
       </div>
     </header>
 
@@ -332,8 +332,14 @@
 
         <div class="takeaway">
           <div class="takeaway-icon warning">!</div>
-          <p><strong>Disbursement: PE red; all others yellow.</strong> MX closest to scaling at 97.7%. Colombia existing CVR still red at 63.8%.</p>
+          <p><strong>Disbursement: PE and CR red; all others yellow.</strong> MX closest to scaling at 97.7%. Colombia existing CVR still red at 63.8%.</p>
         </div>
+
+        <div class="takeaway">
+          <div class="takeaway-icon warning">!</div>
+          <p><strong>Costa Rica added — early launch, thin samples.</strong> 177 MAUs. MoM +1,071% on a tiny base (21→246 txns). Red on new CVR (24.0%), disbursement (54.3%), and bot failures (15.7%). Retention and NPS look strong but n is very small.</p>
+        </div>
+
 
       </div>
     </section>
@@ -476,7 +482,19 @@
               <td class="cell-g">87.9</td>
               <td class="cell-g">0.00%</td>
             </tr>
-
+            <tr>
+              <td><span class="flag" aria-hidden="true">🇨🇷</span> CR</td>
+              <td>177</td>
+              <td class="cell-g">+1,071.4%</td>
+              <td class="cell-r">24.0%</td>
+              <td class="cell-y">66.1%</td>
+              <td class="cell-g">92.9%</td>
+              <td class="cell-g">86.0%</td>
+              <td class="cell-r">54.3%</td>
+              <td class="cell-r">15.7%</td>
+              <td class="cell-g">100.0</td>
+              <td class="cell-g">0.00%</td>
+            </tr>
           </tbody>
         </table>
       </div>
@@ -620,7 +638,7 @@
         <div class="metric-card">
           <h3>NPS (Net Promoter Score)</h3>
           <span class="window">Rolling 30 days</span>
-          <p>Survey sentiment over the last 30 days: <code>% Promoters − % Detractors</code> from <code>int__nps_survey_responses</code>. Neutrals stay in the denominator but not the score. Small samples in PE, DO, EC.</p>
+          <p>Survey sentiment over the last 30 days: <code>% Promoters − % Detractors</code> from <code>int__nps_survey_responses</code>. Neutrals stay in the denominator but not the score. Small samples in PE, DO, EC, CR.</p>
         </div>
 
         <div class="metric-card">
